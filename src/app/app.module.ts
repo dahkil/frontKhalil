@@ -59,7 +59,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(), 
     
   ],
   providers: [ ],

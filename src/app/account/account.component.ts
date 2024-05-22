@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { WeatherService } from '../Services/weather.service';
 import { TemperatureData } from '../Models/TemperatureData';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { WeatherRecommendationModalComponent } from '../weather-recommendation-modal/weather-recommendation-modal.component';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -10,14 +12,27 @@ import { WeatherRecommendationModalComponent } from '../weather-recommendation-m
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: ElementRef
   weatherMessage: string;
+  userDataJson:any;
+  userData:any;
+imageFile;
+  defaultImage = 'https://bootdey.com/img/Content/avatar/avatar1.png';
+  imageSrc: string = this.defaultImage;
   temperatureData: TemperatureData;
   modalRef: BsModalRef;
   showSidebar = true;
-  constructor(private weatherService: WeatherService, private modalService: BsModalService) {}
+  constructor(private weatherService: WeatherService, private modalService: BsModalService,private userService :UserService,private router:Router) {}
 
   ngOnInit(): void {
     this.getWeatherForUser('Tunis');
+  this.userDataJson=  localStorage.getItem('userAuth')
+this.userData= JSON.parse(this.userDataJson);
+//console.log(this.userData)
+if (this.userData.imageName) {
+  this.imageSrc = `assets/images/${this.userData.imageName}`;
+//  console.log(this.imageSrc)
+}
   }
 
   getWeatherForUser(city: string): void {
@@ -51,4 +66,67 @@ export class AccountComponent implements OnInit {
     };
     this.modalRef = this.modalService.show(WeatherRecommendationModalComponent, { initialState });
   }
+  updateImage(){
+    this.userService.updateUserImage(this.userData.id,this.imageFile).subscribe(res=>{
+      console.log(res)
+      localStorage.removeItem('userAuth');
+      localStorage.setItem("userAuth",JSON.stringify(res))
+   window.location.reload();
+    })
+
+  }
+  firstName:string="";
+  lastName:string="";
+  username:string="";
+  email:string="";
+  password:string="";
+
+  updateProfile(){
+    
+    
+  let  userData:any={
+    id:this.userData.id,
+    firstName:   this.firstName==''? this.userData.firstName : this.firstName,
+    lastName: this.lastName==''?  this.userData.lastName:this.lastName,
+    username:this.username==''?  this.userData.username:this.username,
+    email: this.email==''? this.userData.email:this.email,
+    password:this.password==''? '':this.password
+    }
+    console.log(userData);
+    this.userService.updateUser(userData).subscribe(
+      res=>{
+        
+        localStorage.removeItem('userAuth');
+        localStorage.removeItem('accessToken');
+        this.router.navigate(['/register'])
+     
+      }
+    )
+  }
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.imageFile=file;
+      
+      
+    }
+  }
+  deleteProfile(){
+    console.log("delete")
+this.userService.deleteUser(this.userData.id).subscribe(res=>{
+  
+  if(res==null)
+    {
+
+      localStorage.removeItem("userAuth");
+      localStorage.removeItem("accessToken");
+      this.router.navigate(['/register']);
+    }  
+
+})
+
+  
+}
+
 }

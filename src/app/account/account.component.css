@@ -606,4 +606,12 @@ body{
   .modal-backdrop {
     display: none;
   }
+  .mr-4 {
+    margin-right: 1.5rem; /* Adjust the value as needed */
+}
+
+.ml-4 {
+    margin-left: 1.5rem; /* Adjust the value as needed */
+}
+
   

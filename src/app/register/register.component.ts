@@ -172,7 +172,8 @@ get userNamein() {
   sign_in() {
     const loginData = { username : this.username, password: this.Password };
     this.authService.login(loginData).subscribe(Response=>
-      {
+      { console.log(Response);
+      
         const userData = Response.user ;
         localStorage.setItem("userAuth",JSON.stringify(userData))
         const accessToken=Response.accessToken ;

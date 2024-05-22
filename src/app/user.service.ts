@@ -7,18 +7,20 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
+
+  private myToken=localStorage.getItem('accessToken');
   private apiUrl="http://localhost:8080/user/"
   constructor(private httpClient : HttpClient){}
 
-  deleteUser(id:number , token: string) : Observable<User>
+  deleteUser(id:number ) : Observable<User>
   {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+ 
+      const  headers= new HttpHeaders({
+        
+        'Authorization': `Bearer ${this.myToken}`
       })
-    };
-    return this.httpClient.delete<User>(this.apiUrl+"delete/"+id)
+    
+    return this.httpClient.delete<User>(`${this.apiUrl}delete/${id}`,{headers});
   }
 
 
@@ -29,5 +31,26 @@ export class UserService {
     });
     return this.httpClient.get<any>(this.apiUrl+"getUserById"+id,{headers})
   }
+  updateUserImage(id: number, imageFile: File): Observable<any> {
+    const url = `${this.apiUrl}updateUserImage/${id}`;
+    
+    const formData: FormData = new FormData();
+    formData.append('imagefile', imageFile);
+console.log(this.myToken);
 
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.myToken}`
+    });
+
+    return this.httpClient.put(url, formData, { headers });
+  }
+  updateUser(userData: any) : Observable<any>{
+    const url = `${this.apiUrl}updateUserP/${userData.id}`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.myToken}`
+    });
+    return this.httpClient.put(url, userData,{ headers });
+  }
 }
+
+
