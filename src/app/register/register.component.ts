@@ -58,6 +58,8 @@ export class RegisterComponent implements AfterViewInit , OnInit  {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('accessToken')!=null)
+      this._router.navigate(['/account'])
     this.buildRegisterForm();
     this.buildSignInForm();
   }
@@ -152,12 +154,13 @@ get userNamein() {
    }
 
    sign_up() {
+    
     this.authService.sign_up(this.user).subscribe(newUser=>
       {
         this.user=newUser ; 
         console.log("user added ")
-        alert("Registred");
-        this._router.navigate(['/account']);
+      //  alert("Registred");
+        this.container.nativeElement.classList.remove('sign-up-mode'); 
 
         
       } , 
@@ -168,6 +171,7 @@ get userNamein() {
       
 
     )
+   
   }
   sign_in() {
     const loginData = { username : this.username, password: this.Password };

@@ -19,26 +19,27 @@ import { SidebareComponent } from './sidebare/sidebare.component';
 import { WeatherRecommendationModalComponent } from './weather-recommendation-modal/weather-recommendation-modal.component';
 import { ClothingCategoriesComponent } from './clothing-categories/clothing-categories.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {path:"",component:HomeComponent},
-{path:"weather",component:WeatherComponent},
-{path:"account",component:AccountComponent},
-{path:"footer",component:FooterComponent},
-{path:"navbar",component:NavbarComponent},
-{path:"howitwork",component:HowItWorkComponent},
-{path:"service",component:HomeServiceComponent},
+{path:"weather",component:WeatherComponent ,canActivate: [AuthGuard]},
+{path:"account",component:AccountComponent,canActivate: [AuthGuard]},
+{path:"footer",component:FooterComponent,canActivate: [AuthGuard]},
+{path:"navbar",component:NavbarComponent,canActivate: [AuthGuard]},
+{path:"howitwork",component:HowItWorkComponent,canActivate: [AuthGuard]},
+{path:"service",component:HomeServiceComponent,canActivate: [AuthGuard]},
 {path:"register",component:RegisterComponent},
-{path:"leftmeteo",component:LeftContainerComponent},
-{path:"rightmeteo",component:RightContainerComponent},
-{path:"categorie",component:CategorieComponent},
-{path:"calendar",component:CalendarComponent},
-{path:"chatbot",component:ChatbotComponent},
-{path:"wardrob",component:WardrobeComponent , children:[{path:'a',component:ClothingCategoriesComponent}]},
+{path:"leftmeteo",component:LeftContainerComponent,canActivate: [AuthGuard]},
+{path:"rightmeteo",component:RightContainerComponent,canActivate: [AuthGuard]},
+{path:"categorie",component:CategorieComponent,canActivate: [AuthGuard]},
+{path:"calendar",component:CalendarComponent,canActivate: [AuthGuard]},
+{path:"chatbot",component:ChatbotComponent,canActivate: [AuthGuard]},
+{path:"wardrob",component:WardrobeComponent , children:[{path:'a',component:ClothingCategoriesComponent}],canActivate: [AuthGuard]},
 {path:"event",component:EventComponent},
-{path:"sidebar",component:SidebareComponent},
-{path:"weatherRecommendation",component:WeatherRecommendationModalComponent},
-{path:"profil",component:UserProfileComponent}
+{path:"sidebar",component:SidebareComponent,canActivate: [AuthGuard]},
+{path:"weatherRecommendation",component:WeatherRecommendationModalComponent,canActivate: [AuthGuard]},
+{path:"profil",component:UserProfileComponent,canActivate: [AuthGuard]}
 
 
 ];

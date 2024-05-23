@@ -44,11 +44,12 @@
             <span class="text">Weather</span>
         </a>
     </li>
-        <li class="other-menu-item">
-            <a routerLink="/home" class="logout">
-                <i class='bx bx-log-out'></i>
-                <span class="text">Logout</span>
-            </a>
-        </li>
+    <li class="other-menu-item" (click)="logOut()" style="cursor: pointer;">
+        <a class="logout">
+            <i class='bx bx-log-out'></i>
+            <span class="text">Logout</span>
+        </a>
+    </li>
+    
     </ul>
 </section>
