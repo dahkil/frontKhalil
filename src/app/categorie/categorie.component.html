@@ -41,6 +41,8 @@
 					<button type = "button" class = "filter-btn" id = "best-sellers"  (click)="filterClothes('PANTS')">PANTS</button>
 					<button type = "button" class = "filter-btn" id = "specials"  (click)="filterClothes('JACKET')">JACKET</button>
 					<button type = "button" class = "filter-btn" id = "specials"  (click)="filterClothes('SWEATER')">SWEATER</button>
+					<button type = "button" class = "filter-btn" id = "specials"  (click)="filterClothes('SHOES')">SHOES</button>
+					<button type = "button" class = "filter-btn" id = "specials"  (click)="filterClothes('ACCESSORIES')">ACCESSORIES</button>
 				</div>
 	  
 				<div class = "filter-items">
@@ -83,12 +85,16 @@
 						>
 						<input [(ngModel)]="name" id="name" type="text" pInputText />
 					</div>
+					<label for="name" class="font-medium text-900"
+							>Category</label>
 					<select class="form-select" aria-label="Default select example" [(ngModel)]="category">
-						<option selected>Category</option>
+						
 						<option value="SHIRT">SHIRT</option>
 						<option value="PANTS">PANTS</option>
 						<option value="JACKET">JACKET</option>
 						<option value="SWEATER">SWEATER</option>
+						<option value="SHOES">SHOES</option>
+						<option value="ACCESSORIES">ACCESSORIES</option>
 					  </select>
 					<div class="field mb-4 col-12">
 						<label for="userName" class="font-medium text-900"
@@ -145,12 +151,16 @@
 					>
 					<input [(ngModel)]="clothesToUpdate.name" id="name" type="text" pInputText />
 				</div>
+				<label for="name" class="font-medium text-900"
+							>Description</label
+						>
 				<select class="form-select" aria-label="Default select example" [(ngModel)]="clothesToUpdate.category">
-					<option selected>Category</option>
+					
 					<option value="SHIRT">SHIRT</option>
 					<option value="PANTS">PANTS</option>
 					<option value="JACKET">JACKET</option>
 					<option value="SWEATER">SWEATER</option>
+					
 				  </select>
 				<div class="field mb-4 col-12">
 					<label for="userName" class="font-medium text-900"
