@@ -20,6 +20,7 @@ import { WeatherRecommendationModalComponent } from './weather-recommendation-mo
 import { ClothingCategoriesComponent } from './clothing-categories/clothing-categories.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { EventListComponent } from './event-list/event-list.component';
 
 const routes: Routes = [
   {path:"",component:HomeComponent},
@@ -35,11 +36,12 @@ const routes: Routes = [
 {path:"categorie",component:CategorieComponent,canActivate: [AuthGuard]},
 {path:"calendar",component:CalendarComponent,canActivate: [AuthGuard]},
 {path:"chatbot",component:ChatbotComponent,canActivate: [AuthGuard]},
-{path:"wardrob",component:WardrobeComponent , children:[{path:'a',component:ClothingCategoriesComponent}],canActivate: [AuthGuard]},
+{path:"wardrob",component:WardrobeComponent ,canActivate: [AuthGuard]},
 {path:"event",component:EventComponent},
 {path:"sidebar",component:SidebareComponent,canActivate: [AuthGuard]},
 {path:"weatherRecommendation",component:WeatherRecommendationModalComponent,canActivate: [AuthGuard]},
-{path:"profil",component:UserProfileComponent,canActivate: [AuthGuard]}
+{path:"profil",component:UserProfileComponent,canActivate: [AuthGuard]},
+{path:"eventList",component:EventListComponent,canActivate: [AuthGuard]}
 
 
 ];

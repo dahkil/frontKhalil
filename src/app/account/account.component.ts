@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { WeatherRecommendationModalComponent } from '../weather-recommendation-modal/weather-recommendation-modal.component';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-account',
@@ -22,7 +23,7 @@ imageFile;
   temperatureData: TemperatureData;
   modalRef: BsModalRef;
   showSidebar = true;
-  constructor(private weatherService: WeatherService, private modalService: BsModalService,private userService :UserService,private router:Router) {}
+  constructor(private weatherService: WeatherService, private modalService: BsModalService,private userService :UserService,private router:Router,private confirmationService:ConfirmationService) {}
 
   ngOnInit(): void {
     this.getWeatherForUser('Tunis');
@@ -93,15 +94,22 @@ if (this.userData.imageName) {
     password:this.password==''? '':this.password
     }
     console.log(userData);
-    this.userService.updateUser(userData).subscribe(
-      res=>{
-        
-        localStorage.removeItem('userAuth');
-        localStorage.removeItem('accessToken');
-        this.router.navigate(['/register'])
-     
-      }
-    )
+    this.confirmationService.confirm({
+      key: 'confirm1',
+      message: 'Are you sure to perform this action?',
+      accept: () => {
+      
+        this.userService.updateUser(userData).subscribe(
+          res=>{
+            
+            localStorage.removeItem('userAuth');
+            localStorage.removeItem('accessToken');
+            this.router.navigate(['/register'])
+         
+          }
+        )
+      }});
+   
   }
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -113,18 +121,25 @@ if (this.userData.imageName) {
     }
   }
   deleteProfile(){
-    console.log("delete")
-this.userService.deleteUser(this.userData.id).subscribe(res=>{
+    this.confirmationService.confirm({
+      key: 'confirm1',
+      message: 'Are you sure to perform this action?',
+      accept: () => {
+        this.userService.deleteUser(this.userData.id).subscribe(res=>{
+          console.log("delete")
+          if(res==null)
+            {
+        
+              localStorage.removeItem("userAuth");
+              localStorage.removeItem("accessToken");
+              this.router.navigate(['/register']);
+            }  
+        
+        })
+      
+      }});
   
-  if(res==null)
-    {
 
-      localStorage.removeItem("userAuth");
-      localStorage.removeItem("accessToken");
-      this.router.navigate(['/register']);
-    }  
-
-})
 
   
 }

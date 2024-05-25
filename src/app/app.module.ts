@@ -28,6 +28,29 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ClothingCategoriesComponent } from './clothing-categories/clothing-categories.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DialogModule } from 'primeng/dialog';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RippleModule } from 'primeng/ripple';
+import { MessagesModule } from 'primeng/messages';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageModule } from 'primeng/message';
+
+
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PasswordModule } from 'primeng/password';
+
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
+
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { EventListComponent } from './event-list/event-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +73,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SidebareComponent,
     WeatherRecommendationModalComponent,
     ClothingCategoriesComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    EventListComponent
   ],
   imports: [
     BrowserModule,
@@ -59,10 +83,26 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot(), 
+    ModalModule.forRoot(),  BrowserAnimationsModule,
+    DialogModule,
+    ButtonModule,FontAwesomeModule,ButtonModule,
+		RippleModule,MessagesModule,ButtonModule,
+		RippleModule,
+		InputTextModule,
+		
+
+		InputTextareaModule,
+		InputGroupModule,
+		InputGroupAddonModule,
+		PasswordModule,	
+		MessagesModule,
+		MessageModule,OverlayPanelModule,ConfirmDialogModule, RadioButtonModule
+
+		
+	
     
   ],
-  providers: [ ],
+  providers: [MessageService,ConfirmationService] ,
   bootstrap: [AppComponent],
  
 })

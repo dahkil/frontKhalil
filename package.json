@@ -28,10 +28,12 @@
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/interaction": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
     "jquery-ui": "^1.13.3",
     "ngx-bootstrap": "^11.0.2",
+    "primeng": "^17.17.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

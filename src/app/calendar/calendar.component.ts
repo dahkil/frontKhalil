@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faArrowCircleLeft, faArrowCircleRight, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { ServiceService } from './service.service';
 
 declare var $: any;
 
@@ -27,9 +28,10 @@ export class CalendarComponent implements OnInit {
   
   firstDayofMonth: number;
   lastDateofMonth: number;
-  constructor(private router: Router) {}
+  constructor(private router: Router,private eventService:ServiceService) {}
 
   ngOnInit() {
+    this.getEventByUser();
     this.goToToday();
   }
 
@@ -93,7 +95,15 @@ export class CalendarComponent implements OnInit {
         this.currYear = currentDate.getFullYear();
         this.renderCalendar();
     }
-    
+     let event={
+      date: this.selectedDay, title:eventTitle, color: eventColor, month: this.currMonth, year: this.currYear
+
+     }
+     console.log(event);
+     this.eventService.addEvent(event,JSON.parse(localStorage.getItem('userAuth')).id).subscribe(res=>{
+      console.log(res);
+      
+     })
     // Ajouter l'événement
     this.events.push({ date: this.selectedDay, title: eventTitle, color: eventColor, month: this.currMonth, year: this.currYear });
     
@@ -124,6 +134,14 @@ export class CalendarComponent implements OnInit {
            currentDate.getMonth() === calendarDate.getMonth() &&
            currentDate.getFullYear() === calendarDate.getFullYear();
   }
-  deleteEvent(){}
-  
+  deleteEvent(){
+    
+  }
+  getEventByUser(){
+this.eventService.getAllEvents(JSON.parse(localStorage.getItem('userAuth')).id).subscribe(res=>{
+
+  this.events=res;
+  console.log(this.events);
+})
+  }
 }
